@@ -44,6 +44,7 @@ blockElementsBySelector('div[class*="ad"]');
 blockElementsBySelector('div[id*="banner"]');
 blockElementsBySelector('div[class*="banner"]');
 blockElementsBySelector('div[class*="notranslate"]');
+blockElementsBySelector('div[class*="Logo"]');
 
 
 // Block Google Topics iframe
@@ -54,7 +55,7 @@ blockElementsBySelector('iframe[name="goog_topics_frame"]');
 blockPopupContainer();
 
 // 3isk Start
-blockElementsByClass('logo');
+blockElementsByClass('Logo');
 blockElementsByClass('header-items');
 blockElementsByClass('aplvideo');
 blockElementsByClass('main-container videoap-container');
