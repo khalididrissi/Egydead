@@ -29,6 +29,8 @@ function blockPopupContainer() {
 // Block common ad selectors
 
 blockElementsBySelector('div[class*="Logo"]');
+blockElementsBySelector('div[class*="notranslate"]');
+blockElementsBySelector('div[class*="share-post"]');
 
 
 // Block Google Topics iframe
