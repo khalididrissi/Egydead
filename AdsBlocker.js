@@ -27,23 +27,7 @@ function blockPopupContainer() {
 }
 
 // Block common ad selectors
-blockElementsBySelector('iframe[src*=".doubleclick.net"]');
-blockElementsBySelector('iframe[src*=".googleadservices.com"]');
-blockElementsBySelector('div[id*="google_ads_iframe"]');
-blockElementsBySelector('div[id*="div-gpt-ad"]');
-blockElementsBySelector('ins.adsbygoogle');
-blockElementsBySelector('gpt_unit');
-blockElementsBySelector('div.ad-unit');
-blockElementsBySelector('div.ad-container');
-blockElementsBySelector('div.ad-banner');
-blockElementsBySelector('div.interstitial-ad');
-blockElementsBySelector('ins[id^="gpt_unit"]');
-blockElementsBySelector('div.banner-ad');
-blockElementsBySelector('div[id*="ad"]');
-blockElementsBySelector('div[class*="ad"]');
-blockElementsBySelector('div[id*="banner"]');
-blockElementsBySelector('div[class*="banner"]');
-blockElementsBySelector('div[class*="notranslate"]');
+
 blockElementsBySelector('div[class*="Logo"]');
 
 
@@ -51,69 +35,9 @@ blockElementsBySelector('div[class*="Logo"]');
 blockElementsBySelector('iframe[name="goog_topics_frame"]');
 
 
-// Block the popup container
-blockPopupContainer();
-
-// 3isk Start
-blockElementsByClass('Logo');
-blockElementsByClass('header-items');
-blockElementsByClass('aplvideo');
-blockElementsByClass('main-container videoap-container');
-blockElementsByClass('sm_box_1694957651544');
-blockElementsByClass('header-wrapper');
-blockElementsByClass('footer');
-blockElementsByClass('row width_fix_300 my-20');
-blockElementsByClass('row width_fix_300 watch-row-2 my-20');
-blockElementsByClass('my-40');
-blockElementsByClass('div-gpt-ad-1698946296176-0');
-blockElementsByClass('div-gpt-ad-1698946361303-0');
-blockElementsByClass('div-gpt-ad-8176806-1');
-blockElementsByClass('blog-post');
-blockElementsByClass('comments-container');
-blockElementsByClass('abs-head');
-blockElementsByClass('modal fade');
-blockElementsByClass('wrapper justify-content-between align-items-center');
-blockElementsByClass('abs');
-blockElementsByClass('end');
-blockElementsByClass('aside-wrapper mt-5');
-blockElementsByClass('mb-3 text-center');
-blockElementsByClass('fade modal');
-blockElementsByClass('d-flex justify-content-center my-3');
-// 3isk End
-
 //ArabSeed Start
 blockElementsByClass('PageHeader');
-blockElementsByClass('SlideMenu');
-blockElementsByClass('relatedPosts');
-blockElementsByClass('row');
-blockElementsByClass('AboElSeed');
-blockElementsByClass('ads-aa');
-blockElementsByClass('pl-6f4f5c3f5bfa5f5651799c658cb3556b__wrap');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b40743');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b6839');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b49835');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b13062');
-blockElementsByClass('GoogleCreativeContainerClass');
-blockElementsByClass('pl-6f4f5c3f5bfa5f5651799c658cb3556b__wrap');
-//End Page 1
-blockElementsByClass('MainMenuOverlay');
-blockElementsByClass('mys-wrapper');
-blockElementsByClass('GoogleActiveViewInnerContainer');
-blockElementsByClass('div-over');
-blockElementsByClass('WatcherArea');
-blockElementsByClass('videoAdUi');
-blockElementsByClass('sarhne--banr');
-blockElementsByClass('ima-sdk-frame');
-blockElementsByClass('HeaderLogo');
-blockElementsByClass('downloadBTn');
-blockElementsByClass('div-over');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b32535');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b62840');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b9969');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b8124');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b12185');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b41932');
-blockElementsByClass('container-6f4f5c3f5bfa5f5651799c658cb3556b71401');
+
 
 // Remove elements by ID
 var elementsToRemoveById = [
