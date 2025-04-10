@@ -135,4 +135,4 @@
     });
 
     log('Egydead AdBlocker initialized');
-})(); 
+})();
