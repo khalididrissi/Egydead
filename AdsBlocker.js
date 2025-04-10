@@ -1,61 +1,138 @@
-// Block elements by class name
-function blockElementsByClass(className) {
-    var elements = document.getElementsByClassName(className);
+// Enhanced Ad Blocker for Egydead
+(function() {
+    'use strict';
 
-    // Remove elements from the DOM
-    while (elements.length > 0) {
-        elements[0].parentNode.removeChild(elements[0]);
+    // Configuration
+    const config = {
+        debug: false,
+        blockPatterns: {
+            iframes: [
+                {
+                    position: 'fixed',
+                    zIndex: '2147483647',
+                    inset: 'auto 0px 0px auto'
+                },
+                {
+                    position: 'static',
+                    height: '218px',
+                    zIndex: '1',
+                    userSelect: 'none'
+                }
+            ],
+            elements: [
+                'iframe[scrolling="no"]',
+                'iframe[style*="position: fixed"]',
+                'iframe[style*="z-index: 2147483647"]',
+                'iframe[style*="inset: auto 0px 0px auto"]',
+                'iframe[style*="height: 218px"]',
+                'iframe[style*="user-select: none"]'
+            ],
+            urls: [
+                'ads.',
+                'doubleclick',
+                'googleads',
+                'googlesyndication',
+                'adsystem',
+                'adserver',
+                'bidder',
+                'banner/',
+                'pop',
+                'facebook/tr',
+                'analytics'
+            ]
+        }
+    };
+
+    // Logger function
+    function log(message) {
+        if (config.debug) {
+            console.log('[Egydead AdBlocker]', message);
+        }
     }
-}
 
-// Block elements by selector
-function blockElementsBySelector(selector) {
-    var elements = document.querySelectorAll(selector);
-
-    // Remove elements from the DOM
-    elements.forEach(function(element) {
-        element.parentNode.removeChild(element);
-    });
-}
-
-// Block the popup container
-function blockPopupContainer() {
-    var popupContainers = document.querySelectorAll('iframe[id^="container-6f4"][style*="position: fixed;"]');
-    popupContainers.forEach(function(container) {
-        container.parentNode.removeChild(container);
-    });
-}
-
-// Block common ad selectors
-
-blockElementsBySelector('div[class*="Logo"]');
-blockElementsBySelector('div[class*="notranslate"]');
-blockElementsBySelector('div[class*="share-post"]');
-
-
-
-
-//ArabSeed Start
-blockElementsByClass('notranslate');
-blockElementsByClass('share-post');
-
-
-
-
-// Remove elements by ID
-var elementsToRemoveById = [
-
-];
-
-elementsToRemoveById.forEach(function(elementId) {
-    var element = document.getElementById(elementId);
-    if (element) {
-        element.remove();
+    // Check if element matches pattern
+    function matchesPattern(element, pattern) {
+        const style = window.getComputedStyle(element);
+        return Object.entries(pattern).every(([key, value]) => {
+            const elementValue = style.getPropertyValue(key);
+            return elementValue === value;
+        });
     }
-});
 
-// Remove additional aplvideo elements by class name
-var aplvideoDivs = document.getElementsByClassName('aplvideo');
-while (aplvideoDivs.length > 0) {
-    aplvideoDivs[0].remove();
-}
+    // Block problematic iframes
+    function blockIframes() {
+        const iframes = document.getElementsByTagName('iframe');
+        for (const iframe of iframes) {
+            // Check against patterns
+            const shouldBlock = config.blockPatterns.iframes.some(pattern => 
+                matchesPattern(iframe, pattern)
+            );
+
+            if (shouldBlock) {
+                log('Blocking iframe:', iframe);
+                iframe.remove();
+            }
+        }
+    }
+
+    // Block elements by selector
+    function blockElements() {
+        config.blockPatterns.elements.forEach(selector => {
+            document.querySelectorAll(selector).forEach(element => {
+                log('Blocking element:', element);
+                element.remove();
+            });
+        });
+    }
+
+    // Block requests
+    const originalFetch = window.fetch;
+    window.fetch = function(url, options) {
+        const urlString = url.toString().toLowerCase();
+        if (config.blockPatterns.urls.some(pattern => urlString.includes(pattern))) {
+            log('Blocking request:', url);
+            return Promise.reject(new Error('Blocked by Egydead AdBlocker'));
+        }
+        return originalFetch(url, options);
+    };
+
+    // Block XMLHttpRequest
+    const originalXHR = window.XMLHttpRequest;
+    window.XMLHttpRequest = function() {
+        const xhr = new originalXHR();
+        const originalOpen = xhr.open;
+        xhr.open = function(method, url) {
+            const urlString = url.toString().toLowerCase();
+            if (config.blockPatterns.urls.some(pattern => urlString.includes(pattern))) {
+                log('Blocking XHR:', url);
+                throw new Error('Blocked by Egydead AdBlocker');
+            }
+            return originalOpen.apply(xhr, arguments);
+        };
+        return xhr;
+    };
+
+    // Initial blocking
+    blockIframes();
+    blockElements();
+
+    // Set up observer for dynamic content
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(() => {
+            blockIframes();
+            blockElements();
+        });
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Clean up on page unload
+    window.addEventListener('unload', () => {
+        observer.disconnect();
+    });
+
+    log('Egydead AdBlocker initialized');
+})();
