@@ -36,7 +36,10 @@ blockElementsBySelector('iframe[name="goog_topics_frame"]');
 
 
 //ArabSeed Start
-blockElementsByClass('PageHeader');
+blockElementsByClass('notranslate');
+blockElementsByClass('share-post');
+
+
 
 
 // Remove elements by ID
