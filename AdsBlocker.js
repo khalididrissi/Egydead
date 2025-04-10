@@ -25,31 +25,7 @@
                 'iframe[style*="z-index: 2147483647"]',
                 'iframe[style*="inset: auto 0px 0px auto"]',
                 'iframe[style*="height: 218px"]',
-                'iframe[style*="user-select: none"]',
-                // Footer blocking patterns
-                'footer',
-                'div[class*="container"]',
-                'div[class*="Menu"]',
-                'ul[itemscope]',
-                'li[class*="menu-item"]',
-                'div[class*="Social"]',
-                'a[class*="facebook"]',
-                'a[class*="twitter"]',
-                'a[class*="youtube"]',
-                'a[class*="telegram"]',
-                'div[class*="site-copyright"]',
-                'div[class*="clr"]',
-                'div[bis_skin_checked="1"]',
-                // Main menu and search blocking patterns
-                'div[class*="mainMenu"]',
-                'select[class*="mob-select"]',
-                'div[class*="header-left"]',
-                'form[id="s"]',
-                'input[name="s"]',
-                'div[class*="searchLive"]',
-                'button[id="searchsubmit"]',
-                'option[value*="egydead.fyi"]',
-                'option[value*="7ad9anorga.sbs"]'
+                'iframe[style*="user-select: none"]'
             ],
             urls: [
                 'ads.',
@@ -62,13 +38,7 @@
                 'banner/',
                 'pop',
                 'facebook/tr',
-                'analytics',
-                'egydead.fyi',
-                'facebook.com/egydead2',
-                'x.com/egydead1',
-                'youtube.com/@egydead',
-                'bit.ly/3MZEJUc',
-                '7ad9anorga.sbs'
+                'analytics'
             ]
         }
     };
@@ -115,54 +85,6 @@
         });
     }
 
-    // Block specific footer content
-    function blockFooter() {
-        // Remove footer element
-        const footer = document.querySelector('footer');
-        if (footer) {
-            log('Blocking footer');
-            footer.remove();
-        }
-
-        // Remove any remaining social links
-        const socialLinks = document.querySelectorAll('a[class*="facebook"], a[class*="twitter"], a[class*="youtube"], a[class*="telegram"]');
-        socialLinks.forEach(link => {
-            log('Blocking social link:', link);
-            link.remove();
-        });
-
-        // Remove copyright text
-        const copyright = document.querySelector('div[class*="site-copyright"]');
-        if (copyright) {
-            log('Blocking copyright');
-            copyright.remove();
-        }
-    }
-
-    // Block main menu and search
-    function blockMainMenu() {
-        // Remove main menu
-        const mainMenu = document.querySelector('div[class*="mainMenu"]');
-        if (mainMenu) {
-            log('Blocking main menu');
-            mainMenu.remove();
-        }
-
-        // Remove search form
-        const searchForm = document.querySelector('form[id="s"]');
-        if (searchForm) {
-            log('Blocking search form');
-            searchForm.remove();
-        }
-
-        // Remove any remaining select elements
-        const selects = document.querySelectorAll('select[class*="mob-select"]');
-        selects.forEach(select => {
-            log('Blocking select:', select);
-            select.remove();
-        });
-    }
-
     // Block requests
     const originalFetch = window.fetch;
     window.fetch = function(url, options) {
@@ -193,16 +115,12 @@
     // Initial blocking
     blockIframes();
     blockElements();
-    blockFooter();
-    blockMainMenu();
 
     // Set up observer for dynamic content
     const observer = new MutationObserver((mutations) => {
         mutations.forEach(() => {
             blockIframes();
             blockElements();
-            blockFooter();
-            blockMainMenu();
         });
     });
 
